@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HIGH RISSOLES — Risol Mayo Homemade</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #fffaf3;
+    color: #2b2b2b;
+    line-height: 1.6;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ===== NAVBAR ===== */
+  .navbar {
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px;
+  }
+  .logo { font-size: 1.5rem; letter-spacing: 1px; color: #d62828; }
+  .logo span { color: #f77f00; }
+  .navbar nav a { margin-left: 24px; font-weight: 500; color: #444; transition: color .2s; }
+  .navbar nav a:hover { color: #d62828; }
+
+  /* ===== HERO ===== */
+  .hero { background: linear-gradient(135deg, #ffe8d6 0%, #ffd6a5 100%); padding: 70px 0; }
+  .hero-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 30px; flex-wrap: wrap;
+  }
+  .hero-text h2 { font-size: 2.2rem; margin-bottom: 16px; color: #3a2e2e; }
+  .hero-text p { margin-bottom: 26px; color: #5a4a4a; max-width: 480px; }
+  .hero-emoji { font-size: 9rem; animation: float 3s ease-in-out infinite; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .btn-primary {
+    display: inline-block; background: #d62828; color: #fff;
+    padding: 12px 28px; border-radius: 50px; font-weight: 600;
+    transition: background .2s, transform .2s;
+  }
+  .btn-primary:hover { background: #b71c1c; transform: translateY(-2px); }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title { font-size: 1.8rem; text-align: center; margin-bottom: 8px; color: #3a2e2e; }
+  .section-sub { text-align: center; color: #7a6a6a; margin-bottom: 40px; }
+
+  /* ===== MENU PRODUK ===== */
+  .menu-section { padding: 70px 0 40px; }
+  .produk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 22px;
+  }
+  .produk-card {
+    background: #fff; border-radius: 18px; padding: 22px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .produk-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.1); }
+  .produk-emoji { font-size: 3rem; text-align: center; margin-bottom: 10px; }
+  .produk-nama { font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; }
+  .produk-desc { font-size: 0.85rem; color: #8a7a7a; margin-bottom: 12px; flex-grow: 1; }
+  .produk-harga { font-weight: 700; color: #d62828; font-size: 1.1rem; margin-bottom: 14px; }
+  .btn-tambah {
+    background: #f77f00; color: #fff; border: none;
+    padding: 10px; border-radius: 10px; font-weight: 600;
+    cursor: pointer; transition: background .2s;
+  }
+  .btn-tambah:hover { background: #e06c00; }
+
+  /* ===== KERANJANG ===== */
+  .cart-section { padding: 50px 0; background: #fff; }
+  .cart-list { margin-bottom: 20px; }
+  .empty-cart { text-align: center; color: #aaa; padding: 20px 0; }
+  .cart-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 16px; border-bottom: 1px solid #f0e6dc; gap: 12px;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-nama { font-weight: 600; }
+  .cart-item-harga { font-size: 0.85rem; color: #8a7a7a; }
+  .cart-qty { display: flex; align-items: center; gap: 10px; }
+  .cart-qty button {
+    width: 30px; height: 30px; border: none; border-radius: 8px;
+    background: #ffe8d6; color: #d62828; font-weight: 700;
+    font-size: 1rem; cursor: pointer;
+  }
+  .cart-qty button:hover { background: #ffd6a5; }
+  .cart-qty span { min-width: 20px; text-align: center; font-weight: 600; }
+  .btn-hapus { background: none; border: none; color: #c0392b; font-size: 1.2rem; cursor: pointer; padding: 4px 8px; }
+  .cart-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px; padding-top: 20px;
+    border-top: 2px dashed #f0e6dc;
+  }
+  .total-box { font-size: 1.1rem; }
+  .total-box strong { color: #d62828; font-size: 1.4rem; margin-left: 8px; }
+  .btn-checkout {
+    background: #25d366; color: #fff; border: none;
+    padding: 14px 30px; border-radius: 50px; font-weight: 700;
+    font-size: 1rem; cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .btn-checkout:hover:not(:disabled) { background: #1ebe5b; transform: translateY(-2px); }
+  .btn-checkout:disabled { background: #ccc; cursor: not-allowed; }
+
+  /* ===== CARA ORDER ===== */
+  .info-section { padding: 70px 0; background: #fffaf3; }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 22px; margin-top: 30px;
+  }
+  .step {
+    background: #fff; padding: 26px 20px; border-radius: 16px;
+    text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  }
+  .step span {
+    display: inline-flex; justify-content: center; align-items: center;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: #d62828; color: #fff; font-weight: 700;
+    font-size: 1.2rem; margin-bottom: 14px;
+  }
+  .step p { color: #5a4a4a; font-size: 0.95rem; }
+
+  /* ===== FOOTER ===== */
+  .footer { background: #2b2b2b; color: #ddd; padding: 40px 0; text-align: center; }
+  .footer h3 { color: #f77f00; margin-bottom: 10px; letter-spacing: 1px; }
+  .footer a { color: #ffd6a5; }
+  .footer a:hover { text-decoration: underline; }
+  .copyright { margin-top: 18px; font-size: 0.85rem; color: #888; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .hero-text h2 { font-size: 1.6rem; }
+    .hero-emoji { font-size: 6rem; }
+    .nav-inner { flex-direction: column; gap: 10px; }
+    .navbar nav a { margin: 0 10px; }
+    .cart-footer { flex-direction: column; align-items: stretch; }
+    .btn-checkout { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER / NAVBAR -->
+<header class="navbar">
+  <div class="container nav-inner">
+    <h1 class="logo">HIGH<span>RISSOLES</span></h1>
+    <nav>
+      <a href="#menu">Menu</a>
+      <a href="#cara-order">Cara Order</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h2>Risol Mayo Homemade,<br>Renyah di Luar, Lumer di Dalam 🧀</h2>
+      <p>Dibuat fresh setiap hari oleh mahasiswa, untuk kamu yang lapar tapi tetap hemat.</p>
+      <a href="#menu" class="btn-primary">Lihat Menu</a>
+    </div>
+    <div class="hero-emoji">🥟</div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu-section">
+  <div class="container">
+    <h2 class="section-title">Menu Kami</h2>
+    <p class="section-sub">Pilih risol favoritmu, masukkan ke keranjang, lalu checkout via WhatsApp.</p>
+    <div class="produk-grid" id="produkGrid"></div>
+  </div>
+</section>
+
+<!-- KERANJANG -->
+<section class="cart-section">
+  <div class="container">
+    <h2 class="section-title">🛒 Keranjang Kamu</h2>
+    <div id="cartList" class="cart-list">
+      <p class="empty-cart">Keranjang masih kosong. Yuk pilih risol dulu!</p>
+    </div>
+    <div class="cart-footer">
+      <div class="total-box">
+        <span>Total:</span>
+        <strong id="totalHarga">Rp0</strong>
+      </div>
+      <button id="checkoutBtn" class="btn-checkout" disabled>Checkout via WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<!-- CARA ORDER -->
+<section id="cara-order" class="info-section">
+  <div class="container">
+    <h2 class="section-title">Cara Order</h2>
+    <div class="steps">
+      <div class="step"><span>1</span><p>Pilih risol & masukkan ke keranjang</p></div>
+      <div class="step"><span>2</span><p>Klik tombol <b>Checkout via WhatsApp</b></p></div>
+      <div class="step"><span>3</span><p>Kirim pesan otomatis ke admin</p></div>
+      <div class="step"><span>4</span><p>Bayar & tunggu risol datang 🎉</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK / FOOTER -->
+<footer id="kontak" class="footer">
+  <div class="container">
+    <h3>HIGH RISSOLES</h3>
+    <p>Instagram: <a href="#">@highrissoles</a> · WhatsApp: <a href="#">0812-xxxx-xxxx</a></p>
+    <p class="copyright">© 2025 HIGH RISSOLES — Tugas Kewirausahaan Mahasiswa</p>
+  </div>
+</footer>
+
+<script>
+// ===================== DATA PRODUK =====================
+const produkList = [
+  { id: 1, nama: "Risol Mayo Original", desc: "Isi mayo, telur, dan smoked beef. Klasik & gurih.", harga: 3500, emoji: "🥟" },
+  { id: 2, nama: "Risol Mayo Pedas", desc: "Mayo plus cabai rawit. Pedasnya nagih!", harga: 4000, emoji: "🌶️" },
+  { id: 3, nama: "Paket 5 Original", desc: "Hemat! 5 pcs risol mayo original.", harga: 17000, emoji: "🎁" },
+  { id: 4, nama: "Paket 5 Pedas", desc: "Hemat! 5 pcs risol mayo pedas.", harga: 19000, emoji: "🎁" },
+  { id: 5, nama: "Paket 10 Original", desc: "Paling hemat! 10 pcs risol mayo original.", harga: 33000, emoji: "📦" }
+];
+
+// ===================== STATE KERANJANG =====================
+let keranjang = [];
+
+// ===================== FORMAT RUPIAH =====================
+function formatRupiah(angka) {
+  return "Rp" + angka.toLocaleString("id-ID");
+}
+
+// ===================== RENDER PRODUK =====================
+function renderProduk() {
+  const grid = document.getElementById("produkGrid");
+  grid.innerHTML = "";
+  produkList.forEach(function (p) {
+    const card = document.createElement("div");
+    card.className = "produk-card";
+    card.innerHTML = `
+      <div class="produk-emoji">${p.emoji}</div>
+      <div class="produk-nama">${p.nama}</div>
+      <div class="produk-desc">${p.desc}</div>
+      <div class="produk-harga">${formatRupiah(p.harga)}</div>
+      <button class="btn-tambah" onclick="tambahKeKeranjang(${p.id})">+ Tambah</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ===================== TAMBAH KE KERANJANG =====================
+function tambahKeKeranjang(id) {
+  const produk = produkList.find(function (p) { return p.id === id; });
+  if (!produk) return;
+  const itemAda = keranjang.find(function (item) { return item.id === id; });
+  if (itemAda) {
+    itemAda.qty += 1;
+  } else {
+    keranjang.push({ id: produk.id, nama: produk.nama, harga: produk.harga, qty: 1 });
+  }
+  renderKeranjang();
+}
+
+// ===================== UBAH QTY =====================
+function ubahQty(id, delta) {
+  const item = keranjang.find(function (i) { return i.id === id; });
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    keranjang = keranjang.filter(function (i) { return i.id !== id; });
+  }
+  renderKeranjang();
+}
+
+// ===================== HAPUS ITEM =====================
+function hapusItem(id) {
+  keranjang = keranjang.filter(function (i) { return i.id !== id; });
+  renderKeranjang();
+}
+
+// ===================== RENDER KERANJANG =====================
+function renderKeranjang() {
+  const cartList = document.getElementById("cartList");
+  const totalHarga = document.getElementById("totalHarga");
+  const checkoutBtn = document.getElementById("checkoutBtn");
+
+  if (keranjang.length === 0) {
+    cartList.innerHTML = `<p class="empty-cart">Keranjang masih kosong. Yuk pilih risol dulu!</p>`;
+    totalHarga.textContent = "Rp0";
+    checkoutBtn.disabled = true;
+    return;
+  }
+
+  cartList.innerHTML = "";
+  let total = 0;
+
+  keranjang.forEach(function (item) {
+    const subtotal = item.harga * item.qty;
+    total += subtotal;
+    const row = document.createElement("div");
+    row.className = "cart-item";
+    row.innerHTML = `
+      <div class="cart-item-info">
+        <div class="cart-item-nama">${item.nama}</div>
+        <div class="cart-item-harga">${formatRupiah(item.harga)} × ${item.qty} = ${formatRupiah(subtotal)}</div>
+      </div>
+      <div class="cart-qty">
+        <button onclick="ubahQty(${item.id}, -1)">−</button>
+        <span>${item.qty}</span>
+        <button onclick="ubahQty(${item.id}, 1)">+</button>
+      </div>
+      <button class="btn-hapus" onclick="hapusItem(${item.id})" title="Hapus">🗑️</button>
+    `;
+    cartList.appendChild(row);
+  });
+
+  totalHarga.textContent = formatRupiah(total);
+  checkoutBtn.disabled = false;
+}
+
+// ===================== CHECKOUT VIA WHATSAPP =====================
+// ⚠️ GANTI NOMOR DI BAWAH dengan nomor WhatsApp kamu (awali 62, tanpa + atau 0)
+const NOMOR_WA = "6281234567890";
+
+function checkout() {
+  if (keranjang.length === 0) return;
+  let pesan = "Halo HIGH RISSOLES! 🥟\nSaya mau order:\n\n";
+  let total = 0;
+  keranjang.forEach(function (item) {
+    const subtotal = item.harga * item.qty;
+    total += subtotal;
+    pesan += `• ${item.nama} x${item.qty} = ${formatRupiah(subtotal)}\n`;
+  });
+  pesan += `\nTotal: ${formatRupiah(total)}\n\nTerima kasih! 🙏`;
+  const url = `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(pesan)}`;
+  window.open(url, "_blank");
+}
+
+// ===================== INISIALISASI =====================
+document.addEventListener("DOMContentLoaded", function () {
+  renderProduk();
+  renderKeranjang();
+  document.getElementById("checkoutBtn").addEventListener("click", checkout);
+});
+</script>
+</body>
+</html>
